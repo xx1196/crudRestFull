@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Book;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
-class BookController extends Controller
+class BookController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +17,8 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        $data = $books->toArray();
 
-        $response = [
-            'success' => true,
-            'data' => $data,
-            'message' => 'Books retrieved successfully.'
-        ];
-
-        return response()->json($response, 200);
+        return $this->showAll($books);
     }
 
 
@@ -54,15 +47,8 @@ class BookController extends Controller
         }
 
         $book = Book::create($input);
-        $data = $book->toArray();
 
-        $response = [
-            'success' => true,
-            'data' => $data,
-            'message' => 'Book stored successfully.'
-        ];
-
-        return response()->json($response, 200);
+        return $this->showOne($book);
     }
 
 
@@ -83,17 +69,10 @@ class BookController extends Controller
                 'data' => 'Empty',
                 'message' => 'Book not found.'
             ];
-            return response()->json($response, 404);
+            return $this->errorResponse('Book not found.');
         }
 
-
-        $response = [
-            'success' => true,
-            'data' => $data,
-            'message' => 'Book retrieved successfully.'
-        ];
-
-        return response()->json($response, 200);
+        return $this->showOne($book);
     }
 
 
