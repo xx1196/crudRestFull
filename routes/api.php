@@ -17,7 +17,7 @@ Route::middleware('guest')->group(function () {
     Route::get('users/verify/{token}', 'API\UserController@verify')->name('verify');
 
 });
-Route::middleware('auth:api')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::resource('books', 'API\BookController');
 
     Route::resource('users', 'API\UserController',
