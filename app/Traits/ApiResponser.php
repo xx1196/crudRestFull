@@ -33,8 +33,6 @@ trait ApiResponser
     protected function showAll(Collection $collection, $code = 200)
     {
 
-        $collection = $this->paginate($collection);
-
         return $this->successResponse([
             $collection
         ],
@@ -68,35 +66,5 @@ trait ApiResponser
         ],
             $code
         );
-    }
-
-    protected function paginate(Collection $collection)
-    {
-        $rules = [
-            'per_page' => 'integer|min:2|max:50'
-        ];
-
-        $messages = [
-            'per_page.integer' => 'El valor por página debe ser un valor entero',
-            'per_page.min' => 'El valor por página debe ser mayor a 1',
-            'per_page.max' => 'El valor por página debe ser menor a 50',
-        ];
-
-        Validator::validate(request()->all(), $rules, $messages);
-
-        $page = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 15;
-
-        if (request()->has('per_page'))
-            $perPage = (int)request()->per_page;
-
-        $results = $collection->slice(($page - 1) * $perPage, $perPage)->values();
-
-        $paginated = new LengthAwarePaginator($results, $collection->count(), $perPage, $page, [
-            'path' => LengthAwarePaginator::resolveCurrentPath(),
-        ]);
-
-        $paginated->appends(request()->all());
-        return $paginated;
     }
 }
