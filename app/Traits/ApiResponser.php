@@ -34,7 +34,7 @@ trait ApiResponser
     {
 
         return $this->successResponse([
-            $collection
+            'data' => $collection
         ],
             $code
         );
