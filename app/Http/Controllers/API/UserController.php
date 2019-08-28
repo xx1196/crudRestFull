@@ -51,12 +51,7 @@ class UserController extends ApiController
             $fields
         );
 
-        return response(
-            [
-                'data' => $user,
-                'message' => "El usuario $user->name se ha creado con éxito",
-            ], 201
-        );
+        return $this->showOne($user);
     }
 
     /**

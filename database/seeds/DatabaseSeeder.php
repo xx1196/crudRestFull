@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
 
         User::flushEventListeners();
 
-        $quantityUsers = 5;
+        $quantityUsers = 20;
 
         factory(User::class, $quantityUsers)->create();
     }
