@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
     {
         $user = $this->route('user');
         return [
-            'name' => 'min:6|alpha',
+            'name' => 'min:6',
             'email' => 'email|unique:users,email,' . $user->id,
             'password' => 'min:6|confirmed',
             'admin' => 'in:' . User::USER_ADMIN . ',' . User::USER_REGULAR,
@@ -37,7 +37,6 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name.min' => 'El campo nombre tiene que miínimo de 6 caracteres',
-            'name.alpha' => 'El campo nombre no puede contener caracteres especiales',
             'email.email' => 'El campo email tiene que ser un email valido: prueba@prueba.com',
             'email.unique' => 'Este email ya se encuentra asignado',
             'password.min' => 'El campo password tiene que miínimo de 6 caracteres',
