@@ -24,7 +24,7 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:6|alpha',
+            'name' => 'required|min:6',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
         ];
@@ -34,7 +34,6 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name.required'=> 'El campo nombre tiene que ser ingresado',
-            'name.alpha' => 'El campo nombre no puede contener caracteres especiales',
             'name.min'=> 'El campo nombre tiene que miínimo de 6 caracteres',
             'email.required'=> 'El campo email tiene que ser ingresado',
             'email.email'=> 'El campo email tiene que ser un email valido: prueba@prueba.com',
