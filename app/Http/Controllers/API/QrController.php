@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Mail\QrEmail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
 class QrController extends ApiController
@@ -23,11 +24,20 @@ class QrController extends ApiController
             ->generate($request->message, public_path($routeQr));
 
         $this->sendQr($request->email, $routeQr);
+        $this->deleteQr($routeQr);
         return $this->showMessage();
     }
 
     private function sendQr($email, $qr)
     {
         Mail::to($email)->send(new QrEmail($qr));
+    }
+
+    private function deleteQr($routeQr)
+    {
+        $image_path = public_path($routeQr);
+        if (File::exists($image_path)) {
+            File::delete($image_path);
+        }
     }
 }
