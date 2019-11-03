@@ -16,6 +16,8 @@ Route::middleware('guest')->group(function () {
     Route::post('login', 'API\UserController@login');
     Route::get('users/verify/{token}', 'API\UserController@verify')->name('verify');
 
+    Route::post('qr-generate', 'API\QrController@generate');
+
 });
 Route::middleware('auth:api')->group(function () {
     Route::resource('books', 'API\BookController');
