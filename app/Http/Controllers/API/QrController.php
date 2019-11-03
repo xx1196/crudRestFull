@@ -18,8 +18,8 @@ class QrController extends ApiController
         $name = 'qr-code' . Carbon::now()->unix();
         $routeQr = self::PATH . $name . self::EXTENSION;
 
-        \QrCode::size(500)
-            ->format('png')
+        \QrCode::format('png')
+            ->size(200)
             ->generate($request->message, public_path($routeQr));
 
         $this->sendQr($request->email, $routeQr);
